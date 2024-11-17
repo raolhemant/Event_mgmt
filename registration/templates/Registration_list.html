@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration List{% endblock %}
+
+{% block content %}
+    <h2>Registrations</h2>
+
+    <form method="get" action="{% url 'registration_list' %}">
+        <input type="text" name="q" placeholder="Search by name or email..." value="{{ request.GET.q }}">
+        <select name="status">
+            <option value="">All statuses</option>
+            <option value="1" {% if request.GET.status == '1' %}selected{% endif %}>ONGOING</option>
+            <option value="2" {% if request.GET.status == '2' %}selected{% endif %}>COMPLETE</option>
+            <option value="3" {% if request.GET.status == '3' %}selected{% endif %}>CANCELLED</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Register by User</th>
+                <th>Ticket</th>
+                <th>Email</th>
+                <th>Registration Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registration in registrations %}
+            <tr>
+                <td>
+                    {% if registration.event %}
+                        {{ registration.event.name }}
+                    {% else %}
+                        Unknown Event
+                    {% endif %}
+                </td>
+                <td>
+                    {% if registration.user %}
+                        {{ registration.user.username }}
+                    {% else %}
+                        Unknown User
+                    {% endif %}
+                </td>
+               
+                <td>
+                    {% if registration.ticket %}
+                        {{ registration.ticket.ticket_type }}
+                    {% else %}
+                        No Ticket
+                    {% endif %}
+                </td>
+                <td>{{ registration.email }}</td>
+                <td>{{ registration.registration_date|date:"F j, Y, g:i a" }}</td>
+                <td>{{ registration.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'registration_edit' registration.id %}">Edit</a> |
+                    <a href="{% url 'registration_delete' registration.id %}">Delete</a> 
+                
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No registrations found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'registration_create' %}">Create New Registration</a> ||
+    <a href="{% url 'reg_pdf' %}">Download PDF</a>
+{% endblock %}

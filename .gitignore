@@ -1,0 +1,5 @@
+venv
+.env
+front.jpg
+screenshot_5.png
+db.sqlite3

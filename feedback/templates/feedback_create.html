@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Feedback {% endblock %}
+
+{% block content %}
+        <h2>Give Feedback</h2>
+        <form method="post">
+           {% csrf_token %}
+           {{ form.as_p }} 
+           <button type="submit">Submit</button>
+        </form>
+        <a href="{%url 'feedback_list'%}">Back to Feedback List</a>
+{% endblock %}
+

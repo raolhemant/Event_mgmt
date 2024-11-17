@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }} Details{% endblock %}
+
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    <p>{{ object.description }}</p>
+    <p>Venue: {{ object.venue.name }}</p>
+    <p>Capacity: {{ object.capacity }}</p>
+    <p>location: {{ object.location }}</p>
+    <p>Starts: {{ object.start_time|date:"F j, Y, g:i a" }}</p>
+    <p>Ends: {{ object.end_time|date:"F j, Y, g:i a" }}</p>
+    <p>Image: {{ object.image }}</p>
+
+    <h3>Sessions</h3>
+    <ul>
+        {% for session in object.session_set.all %}
+            <li>{{ session.name }} - Speaker: {{ session.speaker }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+{% endblock %}

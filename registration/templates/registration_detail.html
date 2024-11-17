@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Details{% endblock %}
+
+{% block content %}
+    <h2>Registration Details</h2>
+    <p><strong>User:</strong> {{ registration.user.username if registration.user else "Unknown User" }}</p>
+    <p><strong>Event:</strong> {{ registration.event.name if registration.event else "Unknown Event" }}</p>
+    <p><strong>Ticket:</strong> {{ registration.ticket.ticket_type if registration.ticket else "No Ticket" }}</p>
+    <p><strong>Email:</strong> {{ registration.email }}</p>
+    <p><strong>Registration Date:</strong> {{ registration.registration_date|date:"F j, Y, g:i a" }}</p>
+    <p><strong>Status:</strong> {{ registration.get_status_display }}</p>
+
+    <a href="{% url 'registration_edit' registration.id %}">Edit</a> |
+    <a href="{% url 'registration_list' %}">Back to Registrations</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Feedback list {% endblock %}
+
+{% block content %}
+      <h2>Feedback</h2>
+      <table class=" styled-table">
+        <thead>
+            <tr>
+                <th>Event id</th>
+                <th>User id</th>
+                <th>Rating</th>
+                <!-- <th>Comment</th> -->
+                <th>Submitted_at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+            <tr>
+                <td>{{feedback.event_id.name}}</td>
+                <td>{{feedback.user_id.username}}</td>
+                <td>{{feedback.rating}}</td>
+                <!-- <td>{{feedback.comment}}</td> -->
+                <td>{{feedback.submitted_at}}</td>
+                <td><a href="{% url 'feedback_update' feedback.pk %}">Edit</a> | <a href="{% url 'feedback_delete' feedback.pk %}">Delete</a> | <a href="{% url 'feedback_detail' feedback.pk %}">Detail</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="&">No feedback found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'feedback_create' %}">Give New feedback</a>
+
+{% endblock %}

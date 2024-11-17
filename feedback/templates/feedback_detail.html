@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title%} Feedback Detail {% endblock %}\
+
+{% block content %}
+    <h2>Feedback Details</h2>
+    <P><strong>Event ID :</strong>{{ feedback.event_id.name }}</P>
+    <p><strong>User ID :</strong>{{ feedback.user_id.username }}</p>
+    <p><strong>Rating given by User :</strong>{{ feedback.rating }}</p>
+    <p><strong>Comment :</strong>{{ feedback.comment }}</p>
+    <p><strong>submitted At :</strong>{{ feedback.submitted_at }}</p>
+{% endblock %}

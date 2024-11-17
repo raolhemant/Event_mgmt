@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<!-- {% load static %}
+<link rel="stylesheet" href="{% static 'css/evn_list.css' %}"> -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/evn_list.css' %}">
+
+{% block title %}Events List{% endblock %}
+
+{% block content %}
+    <h2>Upcoming Events</h2>
+    <ul>
+        {% for event in object_list %}
+            <li>
+                <h3>{{ event.name }}</h3>
+                <p>{{ event.description }}</p>
+                <p>Venue: {{ event.venue.name }}</p>
+                <p>Date: {{ event.start_time|date:"F j, Y, g:i a" }} - {{ event.end_time|date:"g:i a" }}</p>
+                <p>User: {{request.user}}</p>
+                <a href="{% url 'event_detail' event.pk %}">View Details</a> |
+                <a href="{% url 'event_edit' event.pk %}">Edit</a> |
+                <a href="{% url 'event_delete' event.pk %}">Delete</a> |
+                <a href="{% url 'event_pdf' event.pk %}">Download PDF</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'event_create' %}">Create New Event</a>
+{% endblock %}
+

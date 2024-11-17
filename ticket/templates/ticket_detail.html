@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Ticket Details{% endblock %}
+
+{% block content %}
+    <h2>Ticket Details</h2>
+    <p><strong>Event:</strong> {{ ticket.event.name }}</p>
+    <p><strong>Ticket Type:</strong> {{ ticket.ticket_type }}</p>
+    <p><strong>Price:</strong> ${{ ticket.price }}</p>
+    <p><strong>Quantity Available:</strong> {{ ticket.quantity }}</p>
+
+    <a href="{% url 'ticket_update' ticket.id %}">Edit Ticket</a> |
+    <a href="{% url 'ticket_delete' ticket.id %}">Delete Ticket</a>
+{% endblock %}
